@@ -1,0 +1,28 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+option go_package = "github.com/twistedogic/grpcutil/internal/examplepb";
+
+package examplepb;
+
+message Position {
+	int32 x = 1;
+	int32 y = 2;
+}
+
+message UUID {
+	string value = 1;
+}
+
+message UpdatePositionRequest {
+	UUID uuid = 1;
+	Position position = 2;
+}
+
+message TrackPositionRequest {
+	UUID uuid = 1;
+}
+
+service PositionService {
+	rpc UpdatePosition(UpdatePositionRequest) returns (google.protobuf.Empty) {};
+	rpc TrackPosition(TrackPositionRequest) returns (stream Position) {};
+}
